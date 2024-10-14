@@ -1,6 +1,9 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 require('./tasks');
+require('@nomicfoundation/hardhat-ethers');
+require('hardhat-deploy');
+require('hardhat-deploy-ethers');
 
 // A network request failed. This is an error from the block explorer, not Hardhat.
 // https://github.com/smartcontractkit/full-blockchain-solidity-course-js/discussions/2247
@@ -17,6 +20,9 @@ const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 module.exports = {
   // defaultNetwork: "hardhat",
   solidity: "0.8.27",
+  mocha: {
+    timeout: 500000,
+  },
   networks: {
     // alchemy, Infura, quickNode
     sepolia: {
@@ -29,5 +35,16 @@ module.exports = {
     apiKey: {
       sepolia: ETHERSCAN_API_KEY
     }
+  },
+  namedAccounts: {
+    firstAccount: {
+      default: 0
+    },
+    secondAccount: {
+      default: 1
+    }
+  },
+  gasReporter: {
+    enabled: false // defaulted:true
   }
 };
